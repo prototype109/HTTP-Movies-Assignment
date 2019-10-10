@@ -40,6 +40,16 @@ const MovieUpdateForm = props => {
             .catch(err => console.log('Error: ', err));
     }
 
+    const addPerson = e => {
+        setMovieToEdit({...movieToEdit, 
+                        stars: movieToEdit.stars.concat([''])});
+    }
+
+    const deletePerson = star => {
+        setMovieToEdit({...movieToEdit, 
+                        stars: movieToEdit.stars.filter(delStar => delStar !== star)});
+    }
+
     return(
         <form style={formStyle} onSubmit={handleUpdateSubmit}>
             <input type='text' 
@@ -57,12 +67,18 @@ const MovieUpdateForm = props => {
             {
                 typeof movieToEdit.stars !== 'undefined' ?
                 movieToEdit.stars.map((star, index) => {
-                    return <input type='text' 
-                                name='stars' 
-                                value={star}
-                                onChange={(e) => handleStarsInput(e, index)}/> 
+                    return (<div key={index}>
+                                <input  type='text' 
+                                        name='stars' 
+                                        value={star}
+                                        onChange={(e) => handleStarsInput(e, index)}
+                                        placeholder='Actor/Actress'
+                                        required/> 
+                                <button type='button' onClick={() => deletePerson(star)}>-</button>
+                            </div>)
                 }) : null
             }
+            <button type='button' onClick={addPerson}>+</button>
             <button type='submit'>Submit</button>
         </form>
     )
