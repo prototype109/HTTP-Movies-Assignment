@@ -2,9 +2,7 @@ import React from 'react';
 
 const MovieCard = props => {
   const { title, director, metascore, stars } = props.movie;
-  const edit = () => {
-     props.history.push(`/update-movie/${props.movie.id}`);
-  }
+
   return (
     <div className="movie-card">
       <h2>{title}</h2>
@@ -21,7 +19,6 @@ const MovieCard = props => {
           {star}
         </div>
       ))}
-      <button onClick={edit}>Edit Movie</button>
     </div>
   );
 };
